@@ -1,0 +1,22 @@
+<div class="small-12 column">
+    <fieldset>
+        <legend>{{tagCollectionName}} Tags</legend>
+        <div class="small-12 column">
+            <label>Name</label>
+            <div class="row collapse">
+                <div class="small-10 columns">
+                    <input type="text" ng-model="tagName" placeholder="Insert tag name here....">
+                </div>
+                <div class="small-2 columns">
+                    <button class="button postfix" ng-click="addTag(tagName)">Add</button>
+                </div>
+            </div>
+            <label>Tags</label>
+            <div id="tagsResult">
+                <span ng-repeat="tag in tagCollection" class="label tagsItem">{{tag}}
+                    <a class="removeTag" ng-click="removeTag(tag)">&#215;</a>
+                </span>
+            </div>
+        </div>
+    </fieldset>
+</div>

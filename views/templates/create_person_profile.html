@@ -1,0 +1,62 @@
+<navigation-bar active-nav-element="'profile'"></navigation-bar>
+<div style="text-align: center">
+    <h1>Create New Person Profile</h1>
+</div>
+<hr/>
+<form name="personProfileForm" novalidate>
+    <div class="row">
+        <div class="small-6 column">
+            <div class="small-12 column">
+                <label ng-class="{error:showRequiredFields || personProfileForm.profileName.$invalid && !personProfileForm.profileName.$pristine}">Name
+                    <input ng-model="personProfile.name" name="profileName" type="text" placeholder="eg: Joe Bloggs" required/>
+                </label>
+                <small class="error" ng-show="showRequiredFields || personProfileForm.profileName.$invalid && !personProfileForm.profileName.$pristine">A name is required!</small>
+            </div>
+            <div class="small-12 column">
+                <label ng-class="{error:showRequiredFields || personProfileForm.profileEmail.$invalid && !personProfileForm.profileEmail.$pristine}">Email Address
+                    <input ng-model="personProfile.emailAddress" name="profileEmail" type="email" placeholder="eg: joe@blogs.com" required/>
+                </label>
+                <small class="error" ng-show="showRequiredFields || personProfileForm.profileEmail.$error.required && !personProfileForm.profileEmail.$pristine">An email address is needed.</small>
+                <small class="error" ng-show="personProfileForm.profileEmail.$error.email && !personProfileForm.profileEmail.$pristine">Invalid email address.</small>
+            </div>
+            <div class="small-12 column">
+                <label ng-class="{error:personProfileForm.profileContactNumber1.$invalid && !personProfileForm.profileContactNumber1.$pristine}">Contact Number 1
+                    <input ng-model="personProfile.contactNumber1" name="profileContactNumber1" type="text" ng-pattern="/^\d+$/" ng-minlength="10" ng-maxlength="15" placeholder="eg: 00270113234567"/>
+                </label>
+                <small class="error" ng-show="personProfileForm.profileContactNumber1.$invalid && !personProfileForm.profileContactNumber1.$pristine">Invalid number.</small>
+            </div>
+            <div class="small-12 column">
+                <label ng-class="{error:personProfileForm.profileContactNumber2.$invalid && !personProfileForm.profileContactNumber2.$pristine}">Contact Number 2
+                    <input ng-model="personProfile.contactNumber2" name="profileContactNumber2" type="text" ng-pattern="/^\d+$/" ng-minlength="10" ng-maxlength="15" placeholder="eg: 00270113234567"/>
+                </label>
+                <small class="error" ng-show="personProfileForm.profileContactNumber2.$invalid && !personProfileForm.profileContactNumber2.$pristine">Invalid number.</small>
+            </div>
+            <div class="small-12 column">
+                <label>Personal Information
+                    <textarea rows="9" ng-model="personProfile.bio" placeholder="General personal information"></textarea>
+                </label>
+            </div>     
+        </div>
+        <div class="small-6 column">
+            <div class="small-12 column">
+                <div class="small-12 switch large round">
+                    <div class="small-6 column">
+                        <h5 class="text-center">{{lookinHeading}}</h5>
+                        <input id="lookingForWork" ng-model="personProfile.lookingForWork" type="checkbox">
+                        <label style="margin-left: 32px;" onclick="" for="lookingForWork">On</label>
+                    </div>
+                    <div class="small-6 column">
+                        <h5 class="text-center">{{hiringHeading}}</h5>
+                        <input id="hiring" ng-model="personProfile.hiring" type="checkbox">
+                        <label style="margin-left: 35px;" onclick="" for="hiring">Off</label>
+                    </div>
+                </div>
+                <tags tag-collection-name="'My Experience'" tag-collection="personProfile.workExpTags"></tags>
+                <tags tag-collection-name="'Experience Needed'" tag-collection="personProfile.neededExpTags"></tags>
+            </div>
+        </div>
+        <div class="small-12 column">
+            <button ng-click="savePersonProfile(personProfileForm)" class="button expand">Save</button>
+        </div>
+    </div>
+</form>
