@@ -58,7 +58,7 @@
         $scope.companyProfiles = [];
 
         inducoApi.fetchUserProfiles().success(function (data) {
-            if (data !== null) {
+                if (data !== null) {
                 data.forEach(function (profile) {
                     if (profile.isCompany) {
                         $scope.companyProfiles.push(profile);
@@ -68,6 +68,8 @@
                     $scope.profiles.push(profile);
                 });
             }
+        }).error(function (){
+                $location.path('/');
         });
 
         $scope.createPersonProfile = function () {

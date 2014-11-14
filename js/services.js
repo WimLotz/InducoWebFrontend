@@ -3,20 +3,16 @@
     var inducoApi = function ($http) {
         return {
             saveUser: function (user) {
-                alert(user.email);
-
-                var d = {method: 'POST', data: user, url: 'http://localhost:4567/saveUser'};
-                alert(d.url);
-                return $http(d);
+                return $http({method: 'POST', data: user, url: 'http://localhost:4567/saveUser'});
             },
             login: function (user) {
-                return $http({method: 'POST', data: user, url: 'http://localhost:4567/login'});
+                return $http({method: 'POST', data: user, url: 'http://localhost:4567/login', withCredentials: true});
             },
             saveProfile: function (profile) {
                 return $http({method: 'POST', data: profile, url: 'http://localhost:4567/saveProfile'});
             },
             fetchUserProfiles: function () {
-                return $http({method: 'GET', url: 'http://localhost:4567/fetchUserProfiles'});
+                return $http({method: 'GET', url: 'http://localhost:4567/fetchUserProfiles', withCredentials: true});
             }
         }
     };
