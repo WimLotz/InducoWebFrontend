@@ -2,6 +2,9 @@
 
     var inducoApi = function ($http) {
         return {
+		signOut:function(){
+			return $http({method: "POST", url: "http://localhost:4567/logout", withCredentials: true});
+		},
             saveUser: function (user) {
                 return $http({method: 'POST', data: user, url: 'http://localhost:4567/saveUser'});
             },
@@ -14,7 +17,7 @@
             fetchUserProfiles: function () {
                 return $http({method: 'GET', url: 'http://localhost:4567/fetchUserProfiles', withCredentials: true});
             }
-        }
+        };
     };
 
     inducoApi.$inject = ['$http'];
