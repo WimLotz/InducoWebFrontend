@@ -1,21 +1,21 @@
-(function () {
+(function() {
 
-    var DashboardController = function ($scope) {
+    var DashboardController = function($scope) {
         $scope.message = "dashboard page";
     };
 
-    var HomeController = function ($scope, $modal, inducoApi, $location) {
+    var HomeController = function($scope, $modal, inducoApi, $location) {
         $scope.user = {};
 
-        $scope.login = function () {
-            inducoApi.login($scope.user).success(function () {
+        $scope.login = function() {
+            inducoApi.login($scope.user).success(function() {
                 $location.path('profile');
-            }).error(function (error) {
+            }).error(function(error) {
                 console.log("Login error:" + error);
             });
         };
 
-        $scope.open = function () {
+        $scope.open = function() {
             $modal.open({
                 templateUrl: 'views/modals/create_user.html',
                 controller: CreateUserController
@@ -23,72 +23,72 @@
         };
     };
 
-    var CreateUserController = function ($scope, $modalInstance, inducoApi) {
+    var CreateUserController = function($scope, $modalInstance, inducoApi) {
         $scope.user = {};
 
-        $scope.ok = function () {
+        $scope.ok = function() {
             inducoApi.saveUser($scope.user);
             $modalInstance.close();
         };
 
-        $scope.cancel = function () {
+        $scope.cancel = function() {
             $modalInstance.dismiss('cancel');
         };
     };
 
-    var IndexController = function ($scope, $location) {
-        $scope.isHomePage = function () {
+    var IndexController = function($scope, $location) {
+        $scope.isHomePage = function() {
             return $location.path() === '/';
         };
     };
 
-    var NavigationBarController = function ($scope, inducoApi) {
-        $scope.signOut = function () {
+    var NavigationBarController = function($scope, inducoApi) {
+        $scope.signOut = function() {
             inducoApi.signOut();
         };
     };
 
-    var SearchController = function ($scope) {
+    var SearchController = function($scope) {
         $scope.message = 'search page';
     };
 
-    var ProfileController = function ($scope, inducoApi, $location) {
+    var ProfileController = function($scope, inducoApi, $location) {
         $scope.profiles = [];
-        $scope.personProfiles = [];
-        $scope.companyProfiles = [];
-
-        inducoApi.fetchUserProfiles().success(function (data) {
-                if (data !== null) {
-                data.forEach(function (profile) {
-                    if (profile.isCompany) {
-                        $scope.companyProfiles.push(profile);
-                    } else {
-                        $scope.personProfiles.push(profile);
-                    }
-                    $scope.profiles.push(profile);
-                });
-            }
-        }).error(function (){
-                $location.path('/');
+        $scope.gridOptions = {
+            columnDefs: [{
+                name: "name",
+                width: 200
+            }, {
+                name: "emailAddress",
+                width: 300
+            }, {
+                name: "isCompany",
+                visible: false
+            }]
+        };
+        inducoApi.fetchUserProfiles().success(function(data) {
+            $scope.gridOptions.data = data;
+        }).error(function() {
+            $location.path("/");
         });
 
-        $scope.createPersonProfile = function () {
+        $scope.createPersonProfile = function() {
             $location.path("createPersonalProfile");
         };
 
-        $scope.createCompanyProfile = function () {
+        $scope.createCompanyProfile = function() {
             $location.path("createCompanyProfile");
         };
     };
 
-    var TagsController = function ($scope) {
+    var TagsController = function($scope) {
 
-        $scope.addTag = function (tagName) {
+        $scope.addTag = function(tagName) {
             $scope.tagCollection.push(tagName);
             $scope.tagName = "";
         };
 
-        $scope.removeTag = function (tagName) {
+        $scope.removeTag = function(tagName) {
             for (var i = 0; i < $scope.tagCollection.length + 1; i++) {
                 if ($scope.tagCollection[i] === tagName) {
                     $scope.tagCollection.splice(i, 1);
@@ -98,7 +98,7 @@
         };
     };
 
-    var CreatePersonProfileController = function ($scope, inducoApi) {
+    var CreatePersonProfileController = function($scope, inducoApi) {
         $scope.personProfile = {
             workExpTags: [],
             neededExpTags: [],
@@ -109,7 +109,7 @@
         $scope.lookinHeading = "Looking For Work";
         $scope.showRequiredFields = false;
 
-        $scope.$watch("personProfile.hiring", function (newValue, oldValue) {
+        $scope.$watch("personProfile.hiring", function(newValue, oldValue) {
             if ($scope.personProfile.hiring) {
                 $scope.hiringHeading = "Hiring";
             } else {
@@ -117,7 +117,7 @@
             }
         });
 
-        $scope.$watch('personProfile.lookingForWork', function (newValue, oldValue) {
+        $scope.$watch('personProfile.lookingForWork', function(newValue, oldValue) {
             if ($scope.personProfile.lookingForWork) {
                 $scope.lookinHeading = "Looking For Work";
             } else {
@@ -125,7 +125,7 @@
             }
         });
 
-        $scope.savePersonProfile = function (personProfileForm) {
+        $scope.savePersonProfile = function(personProfileForm) {
             if (personProfileForm.$valid) {
                 $scope.personProfile.IsCompany = false;
                 inducoApi.saveProfile($scope.personProfile);
@@ -136,10 +136,10 @@
         };
     };
 
-    var CreateCompanyProfileController = function ($scope, inducoApi) {
+    var CreateCompanyProfileController = function($scope, inducoApi) {
         $scope.companyProfile = {};
 
-        $scope.submitCompanyProfileForm = function () {
+        $scope.submitCompanyProfileForm = function() {
             $scope.companyProfile.IsCompany = true;
             inducoApi.saveProfile($scope.companyProfile);
         };

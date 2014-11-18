@@ -1,4 +1,3 @@
-
 .landingPage {
     background-color: #333333;
 }
@@ -42,6 +41,11 @@
 
 .workSwitches{
   color: red;
+}
+
+.grid {
+  width: 500px;
+  height: 450px;
 }
 
 
