@@ -54,20 +54,9 @@
 
     var ProfileController = function($scope, inducoApi, $location) {
         $scope.profiles = [];
-        $scope.gridOptions = {
-            columnDefs: [{
-                name: "name",
-                width: 200
-            }, {
-                name: "emailAddress",
-                width: 300
-            }, {
-                name: "isCompany",
-                visible: false
-            }]
-        };
+
         inducoApi.fetchUserProfiles().success(function(data) {
-            $scope.gridOptions.data = data;
+            $scope.profiles = data;
         }).error(function() {
             $location.path("/");
         });
