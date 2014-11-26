@@ -9,5 +9,27 @@
 <hr/>
 <div class="row">
   <div class="small-12 column">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>IsCompany</th>
+          <th>Required Experience</th>
+          <th>Work Experience</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="profile in profiles">
+        <td>{{profile.name}}</td>
+        <td>{{profile.emailAddress}}</td>
+        <td>{{profile.isCompany}}</td>
+        <td>{{profile.neededExpTags | displayArray}}</td>
+        <td>{{profile.workExpTags}}</td>
+        <td><a ng-click="editProfile(profile)" class="">Edit</a></td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>

@@ -1,5 +1,5 @@
 (function() {
-    var induco = angular.module("induco", ["ngRoute", "mm.foundation", "controllers", "directives", "routes", "services"]);
+    var induco = angular.module("induco", ["ngRoute", "mm.foundation", "controllers", "directives", "routes", "services", "filters"]);
 
     induco.config(["$httpProvider",
         function($httpProvider) {
